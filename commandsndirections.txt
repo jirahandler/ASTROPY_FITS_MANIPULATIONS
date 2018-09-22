@@ -1,0 +1,29 @@
+awk '{print $3,$4}' UDGsel_moreinfo_fixdoubles.dat > newfile.dat
+ // print two columns into seperate files
+
+cat newfile.dat | tr ' ' ','> newfile1.dat 
+
+// uses space seperated file and convert to true csv
+split -l 1000 newfile1.txt segment 
+// to split files where segment is the prefix name to the part file(s)
+
+find . /home/soumyananda/Dropbox/Goswami/FITS_GALEX_NUV4S_TAR/tmp/* -name "*_pngs.tar.gz" -type f -exec rm {} \+ 
+ // to remove png tars in multiple folders
+
+find . /home/soumyananda/Dropbox/Goswami/FITS_GALEX_NUV4S_TAR/tmp/* -name "*_fits.tar.gz" -execdir tar -xvzf '{}' \;
+ // extract tar files in different folders especially in cases of multi level compression eg dream inside a dream inside a dream
+
+find . /home/soumyananda/Dropbox/Goswami/DATA_FITS_KIDS_GAMA_VST/ALL_FITS_GALEX_NUV_4ARCSEC/* -name "*.fits"  -exec cp '{}' ALL_FITS_GALEX_NUV_4ARCSEC  \; 
+// keep all fits files in one folder
+
+
+
+find . /home/soumyananda/Dropbox/Goswami/DATA_FITS_KIDS_GAMA_VST/GALEX_NUV_FITS_6AS/* -name "*_pngs.tar.gz" -type f -exec rm {} \+ 
+//similar commands
+
+paste fnold fnnew|while read fnold fnnew; do mv ${fnold} ${fnnew}; done 
+// renames the filename(s) of a certain number of files (where fnold is the old  list of filenames and fnnew is the new list of filenames which you want to rename to, 
+//each file name entry being separated by a new line) to the new list of filenames 1:1 correspondence 
+
+ls *.tar | xargs -i tar xf {}
+//use batch untar
